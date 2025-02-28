@@ -1,180 +1,104 @@
 package com.example.calculator;
 
 import java.util.InputMismatchException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Calculator {
-    public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        int first =0;
-        int second = 0;
-        int result = 0;
-        float fResult = 0;
-        boolean isFloat = false;
-        char operator;
+    //필드
+    Queue<Number> resultList = new LinkedList<Number>();
+
+    //생성자
 
 
+    //게터 세터
+    public Queue<Number> getResultList() {
+        return resultList;
+    }
 
-        while (true) {
-
-            //첫 번재 숫자 입력 반복문
-            while (true) {
-                try {
-                    System.out.print("첫 번째 숫자를 입력하세요: ");
-                    first = scanner.nextInt();
-
-                    if (first < 0) {
-                        System.out.println("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
-                        continue;
-                    }
-
-                    break;
-
-                } catch (InputMismatchException e) {
-                    //int 말고 다른 걸 입력했을 경우
-                    System.out.println("정수만 입력 가능합니다. 다시 입력해주세요.");
-                    scanner.nextLine();
-                    System.out.println();
-                }
-
-            }
-
-
-            //두 번째 숫자 입력 반복문
-            while (true) {
-                try {
-
-                    System.out.print("두 번째 숫자를 입력하세요: ");
-                    second = scanner.nextInt();
-
-                    if (second < 0) {
-                        System.out.println("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
-                        continue;
-                    }
-
-                    break;
-
-                } catch (InputMismatchException e) {
-                    //int 말고 다른 걸 입력했을 경우
-                    System.out.println("정수만 입력 가능합니다. 다시 입력해주세요.");
-                    scanner.nextLine();
-                    System.out.println();
-                }
-
-
-            }
-
-
-            //입력한 숫자 보여주기
-            System.out.println();
-            System.out.println("입력한 숫자");
-            System.out.println("["+first + "," +  second +"]");
+    public void setResultList(Queue<Number> resultList) {
+        this.resultList = resultList;
+    }
 
 
 
-            // 연산자 기호 입력 반복분
-            while (true) {
+    //기능 1 : input 숫자 정수인지 확인
+    public int checkingInput(Scanner scanner, char operator) throws InputMismatchException, ArithmeticException {
+        int input = scanner.nextInt();
 
-                System.out.println();
-                System.out.println("기호를 적어주세요");
-                System.out.println(" + , - , x , / ");
-                operator = scanner.next().charAt(0);
+        if (input < 0 && operator == ' ') {
+            throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
+        } else if (input == 0 && operator == '/') {
+            throw new ArithmeticException();
+        } else {
+            return input;
+        }
 
+    }
 
-                if (operator == '+' || operator == '-' || operator == 'x' ||
-                        operator == 'X' || operator == '*' || operator == '/') {
-                    break;
-                } else {
-                    System.out.println();
-                    System.out.println("목록 안에서만 입력해주세요");
-                    continue;
-                }
-            }
+    //기능 2 : 잘못된 operator를 입력했는지 확인
+    public char checkingOperator(Scanner scanner) throws IllegalArgumentException {
 
+        char input = scanner.next().charAt(0);
 
+        if(!(input == '+' || input == '-' || input == 'x' ||
+                input == 'X' || input == '*' || input == '/')) {
+            throw new IllegalArgumentException("목록 안에서만 입력해주세요");
+        } else {
+            return input;
+        }
 
-            //나눗셈 할 때 분모(두번째 숫자)가 0일 경우
-            if(operator == '/'){
-                while (second == 0){
-                    System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+    }
 
-                    //다시 두번째 숫자만 입력
-                    try {
-                        System.out.println();
-                        System.out.print("두 번째 숫자를 입력하세요: ");
-                        second = scanner.nextInt();
+    //연산 기능
+    public Number calculate(int firstInput, int secondInput, char operator) {
 
-                        if (second < 0) {
-                            System.out.println("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
-                            continue;
-                        }
-
-                    } catch (InputMismatchException e) {
-                        //int말고 다른 걸 입력했을 경우
-                        System.out.println("정수만 입력 가능합니다. 다시 입력해주세요.");
-                        scanner.nextLine();
-                        System.out.println();
-                    }
-                }
-            }
-
-
-
-
-            //연산
-            if (operator == '+') {
-                result = (int)first + second;
-            } else if (operator == '-') {
-                result = first - second;
-            } else if (operator == 'x' || operator == '*' || operator == 'X') {
-                result = first * second;
-            } else if (operator == '/') {
-                if(first%second != 0) {
-                    fResult = (float) first / second;
-                    isFloat = true;
-                } else {
-                    result = first / second;
-                }
-            }
-
-
-
-            System.out.println();
-
-
-            //출력
-            if (operator == '/' && isFloat) {
-                System.out.println();
-                System.out.println("["+ first + " " + operator + " " + second
-                        + " " + "=" + " " + fResult +"]");
+        if (operator == '+') {
+                return firstInput + secondInput;
+        } else if (operator == '-') {
+                return firstInput - secondInput;
+        } else if (operator == 'x' || operator == '*' || operator == 'X') {
+                return firstInput * secondInput;
+        } else if (operator == '/') {
+            if(firstInput%secondInput==0) {
+                return firstInput / secondInput;
             } else {
-                System.out.println();
-                System.out.println("[" + first + " " + operator + " " + second
-                        + " " + "=" + " " + result + "]");
+                return (float)firstInput / secondInput;
             }
+        }
+
+        return null;
+    }
 
 
-
-            // exit 입력시 계산기 종료 or 재실행
+    //출력 기능
+    public void printResult(int firstInput, int secondInput, char operator, int result, float fResult, boolean isFloat) {
+        if (isFloat) {
             System.out.println();
-            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-            scanner.nextLine();
-            String answer = scanner.nextLine();
-
-            if(answer.equals("exit")){
-                System.out.println("계산기 종료");
-                break;
-            }
-
+            System.out.println("["+ firstInput + " " + operator + " " + secondInput
+                    + " " + "=" + " " + fResult +"]");
+        } else {
             System.out.println();
-            System.out.println("(재실행)");
-            System.out.println();
+            System.out.println("[" + firstInput + " " + operator + " " + secondInput
+                    + " " + "=" + " " + result + "]");
+        }
+    }
+
+    public void addResult(int result, float fResult) {
+        if(fResult != 0 ) {
+            this.resultList.add(fResult);
+        } else {
+            this.resultList.add(result);
 
         }
 
-
-        scanner.close();
-
     }
+
+    public void removeResult() {
+        this.resultList.poll();
+    }
+
+
 }
