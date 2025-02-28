@@ -29,8 +29,10 @@ public class Calculator {
         int input = scanner.nextInt();
 
         if (input < 0 && operator == ' ') {
+            //정수만 입력
             throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
         } else if (input == 0 && operator == '/') {
+            //0으로 나누기 못함
             throw new ArithmeticException();
         } else {
             return input;

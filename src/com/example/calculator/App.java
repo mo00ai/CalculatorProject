@@ -119,6 +119,7 @@ public class App {
                         scanner.nextLine();
                         System.out.println();
                     } catch (ArithmeticException e) {
+                        //0으로 나누기 할 수 없단다
                         System.out.println();
                     }
                 }
