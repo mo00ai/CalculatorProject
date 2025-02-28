@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Calculator {
-
-    OperatorType operatorType;
+public class ArithmeticCalculator {
 
     //필드
     Queue<Number> resultList = new LinkedList<Number>();
@@ -33,7 +31,7 @@ public class Calculator {
         if (input < 0 && operator == ' ') {
             //정수만 입력
             throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
-        } else if (input == 0 && operator == OperatorType.DIVIDE.getValue()) {
+        } else if (input == 0 && operator == '/') {
             //0으로 나누기 못함
             throw new ArithmeticException();
         } else {
@@ -47,7 +45,8 @@ public class Calculator {
 
         char input = scanner.next().charAt(0);
 
-        if(!(OperatorType.contains(input))) {
+        if(!(input == '+' || input == '-' || input == 'x' ||
+                input == 'X' || input == '*' || input == '/')) {
             throw new IllegalArgumentException("목록 안에서만 입력해주세요");
         } else {
             return input;
@@ -59,11 +58,11 @@ public class Calculator {
     public Number calculate(int firstInput, int secondInput, char operator) {
 
         if (operator == '+') {
-                return firstInput + secondInput;
+            return firstInput + secondInput;
         } else if (operator == '-') {
-                return firstInput - secondInput;
-        } else if ( operator == '*' ) {
-                return firstInput * secondInput;
+            return firstInput - secondInput;
+        } else if (operator == 'x' || operator == '*' || operator == 'X') {
+            return firstInput * secondInput;
         } else if (operator == '/') {
             if(firstInput%secondInput==0) {
                 return firstInput / secondInput;

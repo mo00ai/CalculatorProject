@@ -87,7 +87,7 @@ public class App {
             while (true) {
                 try {
                     System.out.println();
-                    System.out.println(" + , - , x , / ");
+                    System.out.println(" + , - , * , / ");
                     System.out.print("기호를 적어주세요: ");
 
                     operator = calculator.checkingOperator(scanner);
