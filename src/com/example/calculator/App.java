@@ -38,7 +38,6 @@ public class App {
             operator = ' ';
 
 
-            System.out.println("resultList = "+calculator.resultList.toString());
 
             //첫 번재 숫자 입력 반복문
             while (true) {
@@ -56,6 +55,8 @@ public class App {
 
             }
 
+            calculator.printBiggerFirstInput(firstInput);
+
 
 
             //두 번째 숫자 입력 반복문
@@ -72,6 +73,8 @@ public class App {
                     System.out.println();
                 }
             }
+
+            calculator.printBiggerSecondInput(secondInput);
 
 
             //입력한 숫자 보여주기
@@ -125,14 +128,8 @@ public class App {
 
 
 
+            //큰 list 출력
 
-            //연산
-//            if ( firstInput.intValue() % secondInput.intValue() == 0 || !(operator == '/')){
-//                result = calculator.calculate(firstInput, secondInput, operator).intValue();
-//            } else {
-//                fResult = calculator.calculate(firstInput, secondInput, operator).floatValue();
-//                isFloat = true;
-//            }
 
 
 
@@ -142,7 +139,6 @@ public class App {
             //리스트 추가
             calculator.addResult(result);
 
-            System.out.println("resultList = "+calculator.resultList.toString());
 
 
             System.out.println();
@@ -165,11 +161,12 @@ public class App {
                 break;
             }
 
-            calculator.removeResult();
-
             System.out.println();
             System.out.println("(재실행)");
-            System.out.println("resultList = "+calculator.resultList.toString());
+
+            System.out.println(calculator.resultList.toString());
+
+
             System.out.println();
         }
 

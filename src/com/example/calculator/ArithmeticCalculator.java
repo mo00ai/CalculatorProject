@@ -5,29 +5,29 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class ArithmeticCalculator {
+public class ArithmeticCalculator<T extends Number> {
 
     OperatorType operatorType;
 
     //필드
-    Queue<Number> resultList = new LinkedList<>();
+    Queue<T> resultList = new LinkedList<>();
 
     //생성자
 
 
     //게터 세터
-    public Queue<Number> getResultList() {
+    public Queue<T> getResultList() {
         return resultList;
     }
 
-    public void setResultList(Queue<Number> resultList) {
+    public void setResultList(Queue<T> resultList) {
         this.resultList = resultList;
     }
 
 
 
     //기능 1 : input 숫자 정수인지 확인
-    public <T> T checkingInput(Scanner scanner, char operator) throws InputMismatchException, ArithmeticException {
+    public T checkingInput(Scanner scanner, char operator) throws InputMismatchException, ArithmeticException {
 
         if(scanner.hasNextInt()) {
             int input = scanner.nextInt();
@@ -75,7 +75,7 @@ public class ArithmeticCalculator {
     }
 
     //연산 기능
-    public <T extends Number> T calculate(T firstInput, T secondInput, char operator) {
+    public T calculate(T firstInput, T secondInput, char operator) {
 
         double first = firstInput.doubleValue();
         double second = secondInput.doubleValue();
@@ -101,7 +101,7 @@ public class ArithmeticCalculator {
 
 
     //출력 기능
-    public <T>  void printResult(T firstInput, T secondInput, char operator, T result) {
+    public void printResult(T firstInput, T secondInput, char operator, T result) {
 
             System.out.println();
             System.out.println("[" + firstInput + " " + operator + " " + secondInput
@@ -109,7 +109,7 @@ public class ArithmeticCalculator {
 
     }
 
-    public <T>  void addResult(T result) {
+    public void addResult(T result) {
 
         this.resultList.add(result);
 
@@ -118,6 +118,27 @@ public class ArithmeticCalculator {
     public void removeResult() {
         this.resultList.poll();
     }
+
+    public void printBiggerFirstInput(T firstInput) {
+
+        this.resultList
+                .stream()
+                .filter(result -> result.doubleValue() > firstInput.doubleValue())
+                .forEach(System.out::println);
+
+
+    }
+
+    public void printBiggerSecondInput(T secondInput) {
+
+        this.resultList
+                .stream()
+                .filter(result -> result.doubleValue() > secondInput.doubleValue())
+                .forEach(System.out::println);
+
+
+    }
+
 
 
 }
