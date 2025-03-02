@@ -9,14 +9,13 @@ public class App {
 
 
         Scanner scanner = new Scanner(System.in);
-        int firstInput =0;
-        int secondInput = 0;
-        int result = 0;
-        float fResult = 0;
+        Number firstInput =0;
+        Number secondInput = 0;
+        Number result = 0;
         boolean isFloat = false;
         char operator = ' ';
 
-        Calculator calculator = new Calculator();
+        ArithmeticCalculator calculator = new ArithmeticCalculator();
 
 
 
@@ -35,7 +34,6 @@ public class App {
             firstInput = 0;
             secondInput = 0;
             result = 0;
-            fResult = 0;
             isFloat = false;
             operator = ' ';
 
@@ -104,7 +102,7 @@ public class App {
 
             //나눗셈 할 때 분모(두번째 숫자)가 0일 경우
             if(operator == '/'){
-                while (secondInput == 0){
+                while (secondInput.intValue() == 0 || secondInput.doubleValue() == 0.0){
                     System.out.println();
                     System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
                     //다시 두번째 숫자만 입력
@@ -129,15 +127,20 @@ public class App {
 
 
             //연산
-            if ( firstInput % secondInput == 0 || !(operator == '/')){
-                result = calculator.calculate(firstInput, secondInput, operator).intValue();
-            } else {
-                fResult = calculator.calculate(firstInput, secondInput, operator).floatValue();
-                isFloat = true;
-            }
+//            if ( firstInput.intValue() % secondInput.intValue() == 0 || !(operator == '/')){
+//                result = calculator.calculate(firstInput, secondInput, operator).intValue();
+//            } else {
+//                fResult = calculator.calculate(firstInput, secondInput, operator).floatValue();
+//                isFloat = true;
+//            }
 
 
-            calculator.addResult(result,fResult);
+
+           result = calculator.calculate(firstInput, secondInput, operator);
+
+
+            //리스트 추가
+            calculator.addResult(result);
 
             System.out.println("resultList = "+calculator.resultList.toString());
 
@@ -146,7 +149,7 @@ public class App {
 
 
             //출력
-            calculator.printResult(firstInput,secondInput,operator,result,fResult,isFloat);
+            calculator.printResult(firstInput,secondInput,operator,result);
 
 
 

@@ -7,8 +7,10 @@ import java.util.Scanner;
 
 public class ArithmeticCalculator {
 
+    OperatorType operatorType;
+
     //필드
-    Queue<Number> resultList = new LinkedList<Number>();
+    Queue<Number> resultList = new LinkedList<>();
 
     //생성자
 
@@ -25,18 +27,37 @@ public class ArithmeticCalculator {
 
 
     //기능 1 : input 숫자 정수인지 확인
-    public int checkingInput(Scanner scanner, char operator) throws InputMismatchException, ArithmeticException {
-        int input = scanner.nextInt();
+    public <T> T checkingInput(Scanner scanner, char operator) throws InputMismatchException, ArithmeticException {
 
-        if (input < 0 && operator == ' ') {
-            //정수만 입력
-            throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
-        } else if (input == 0 && operator == '/') {
-            //0으로 나누기 못함
-            throw new ArithmeticException();
-        } else {
-            return input;
+        if(scanner.hasNextInt()) {
+            int input = scanner.nextInt();
+
+            if (input < 0 && operator == ' ') {
+                //정수만 입력
+                throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
+            } else if (input == 0 && operator == OperatorType.DIVIDE.getValue()) {
+                //0으로 나누기 못함
+                throw new ArithmeticException();
+            } else {
+                return (T) Integer.valueOf(input);
+            }
+
+        } else if (scanner.hasNextDouble()) {
+            double input = scanner.nextDouble();
+
+            if (input < 0.0 && operator == ' ') {
+                //정수만 입력
+                throw new InputMismatchException("\n0을 포함한 양의 정수만 가능합니다. 재입력해주세요.");
+            } else if (input == 0 && operator == OperatorType.DIVIDE.getValue()) {
+                //0으로 나누기 못함
+                throw new ArithmeticException();
+            } else {
+                return (T) Double.valueOf(input) ;
+            }
+
         }
+
+        return null;
 
     }
 
@@ -45,8 +66,7 @@ public class ArithmeticCalculator {
 
         char input = scanner.next().charAt(0);
 
-        if(!(input == '+' || input == '-' || input == 'x' ||
-                input == 'X' || input == '*' || input == '/')) {
+        if(!(OperatorType.contains(input))) {
             throw new IllegalArgumentException("목록 안에서만 입력해주세요");
         } else {
             return input;
@@ -55,46 +75,43 @@ public class ArithmeticCalculator {
     }
 
     //연산 기능
-    public Number calculate(int firstInput, int secondInput, char operator) {
+    public <T extends Number> T calculate(T firstInput, T secondInput, char operator) {
+
+        double first = firstInput.doubleValue();
+        double second = secondInput.doubleValue();
+        double result = 0;
 
         if (operator == '+') {
-            return firstInput + secondInput;
+            result = first + second;
         } else if (operator == '-') {
-            return firstInput - secondInput;
-        } else if (operator == 'x' || operator == '*' || operator == 'X') {
-            return firstInput * secondInput;
+            result = first - second;
+        } else if ( operator == '*' ) {
+            result = first * second;
         } else if (operator == '/') {
-            if(firstInput%secondInput==0) {
-                return firstInput / secondInput;
-            } else {
-                return (float)firstInput / secondInput;
-            }
+            result = first / second;
         }
 
-        return null;
+        if(result % 1==0) {
+            return (T) Integer.valueOf((int)result);
+        } else {
+            return (T) Double.valueOf(result);
+        }
+
     }
 
 
     //출력 기능
-    public void printResult(int firstInput, int secondInput, char operator, int result, float fResult, boolean isFloat) {
-        if (isFloat) {
-            System.out.println();
-            System.out.println("["+ firstInput + " " + operator + " " + secondInput
-                    + " " + "=" + " " + fResult +"]");
-        } else {
+    public <T>  void printResult(T firstInput, T secondInput, char operator, T result) {
+
             System.out.println();
             System.out.println("[" + firstInput + " " + operator + " " + secondInput
                     + " " + "=" + " " + result + "]");
-        }
+
     }
 
-    public void addResult(int result, float fResult) {
-        if(fResult != 0 ) {
-            this.resultList.add(fResult);
-        } else {
-            this.resultList.add(result);
+    public <T>  void addResult(T result) {
 
-        }
+        this.resultList.add(result);
 
     }
 
