@@ -119,6 +119,8 @@ public class ArithmeticCalculator<T extends Number> {
         this.resultList.poll();
     }
 
+
+    //입력값보다 더 큰 결과값들을 출력
     public void printBiggerInput(T input) {
 
         this.resultList

@@ -55,6 +55,7 @@ public class App {
 
             }
 
+            //입력보다 더 큰 결과값 리스트 출력
             calculator.printBiggerInput(firstInput);
 
 
@@ -74,6 +75,7 @@ public class App {
                 }
             }
 
+            //입력보다 더 큰 결과값 리스트 출력
             calculator.printBiggerInput(secondInput);
 
 
@@ -127,12 +129,7 @@ public class App {
             }
 
 
-
-            //큰 list 출력
-
-
-
-
+            //연산
            result = calculator.calculate(firstInput, secondInput, operator);
 
 
