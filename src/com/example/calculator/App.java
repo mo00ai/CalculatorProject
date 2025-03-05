@@ -55,7 +55,7 @@ public class App {
 
             }
 
-            calculator.printBiggerFirstInput(firstInput);
+            calculator.printBiggerInput(firstInput);
 
 
 
@@ -74,7 +74,7 @@ public class App {
                 }
             }
 
-            calculator.printBiggerSecondInput(secondInput);
+            calculator.printBiggerInput(secondInput);
 
 
             //입력한 숫자 보여주기

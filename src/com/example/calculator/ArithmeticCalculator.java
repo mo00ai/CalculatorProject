@@ -119,25 +119,16 @@ public class ArithmeticCalculator<T extends Number> {
         this.resultList.poll();
     }
 
-    public void printBiggerFirstInput(T firstInput) {
+    public void printBiggerInput(T input) {
 
         this.resultList
                 .stream()
-                .filter(result -> result.doubleValue() > firstInput.doubleValue())
+                .filter(result -> result.doubleValue() > input.doubleValue())
                 .forEach(System.out::println);
 
 
     }
 
-    public void printBiggerSecondInput(T secondInput) {
-
-        this.resultList
-                .stream()
-                .filter(result -> result.doubleValue() > secondInput.doubleValue())
-                .forEach(System.out::println);
-
-
-    }
 
 
 
