@@ -10,7 +10,7 @@ public class ArithmeticCalculator<T extends Number> {
     OperatorType operatorType;
 
     //필드
-    Queue<T> resultList = new LinkedList<>();
+    private Queue<T> resultList = new LinkedList<>();
 
     //생성자
 
@@ -55,9 +55,10 @@ public class ArithmeticCalculator<T extends Number> {
                 return (T) Double.valueOf(input) ;
             }
 
+        } else  {
+            throw new InputMismatchException("숫자만 입력해주세요.");
         }
 
-        return null;
 
     }
 
@@ -127,7 +128,6 @@ public class ArithmeticCalculator<T extends Number> {
                 .stream()
                 .filter(result -> result.doubleValue() > input.doubleValue())
                 .forEach(System.out::println);
-
 
     }
 

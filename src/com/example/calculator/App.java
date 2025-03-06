@@ -12,7 +12,6 @@ public class App {
         Number firstInput =0;
         Number secondInput = 0;
         Number result = 0;
-        boolean isFloat = false;
         char operator = ' ';
 
         ArithmeticCalculator calculator = new ArithmeticCalculator();
@@ -34,7 +33,6 @@ public class App {
             firstInput = 0;
             secondInput = 0;
             result = 0;
-            isFloat = false;
             operator = ' ';
 
 
